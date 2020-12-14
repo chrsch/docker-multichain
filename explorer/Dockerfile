@@ -2,10 +2,13 @@ FROM ubuntu:focal
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV TZ=Europe/Berlin
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt-get update \
         && apt-get upgrade -q -y \
         && apt-get dist-upgrade -q -y \
-        && apt-get install -q -y build-essential wget curl xxd python python-dev sqlite3 libsqlite3-dev \
+        && apt-get install -q -y build-essential wget curl xxd python python-dev sqlite3 libsqlite3-dev tzdata \
         && curl -O https://raw.githubusercontent.com/pypa/get-pip/master/get-pip.py \
         && python2 get-pip.py \
         && pip install pycrypto \

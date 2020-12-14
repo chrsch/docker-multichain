@@ -2,10 +2,13 @@ FROM ubuntu:focal
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV TZ=Europe/Berlin
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt-get update \
         && apt-get upgrade -q -y \
         && apt-get dist-upgrade -q -y \
-        && apt-get install -q -y wget curl xxd \
+        && apt-get install -q -y wget curl xxd tzdata \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/* \
         && cd /tmp \
